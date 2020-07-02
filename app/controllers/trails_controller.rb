@@ -13,6 +13,20 @@ class TrailsController < ApplicationController
     end
   end
 
+  def update
+    trail = Trail.find(params[:id])
+    if trail.update(trail_params)
+      render json: {}, status: :no_content
+    else
+      render json: {errors: trail.errors.full_messages}, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    trail = Trail.find(params[:id])
+    trail.delete
+    render json: {}, status: :no_content
+  end
   private
 
   def trail_params
