@@ -33,7 +33,7 @@ RSpec.describe "Trails", type: :request do
     context 'when the trail is valid' do
       before(:example) do
         @trail_params = attributes_for(:trail)
-        post '/trails', params: { trail: @trail_params }
+        post '/trails', params: { trail: @trail_params }, headers: authenticated_header
       end
 
       it 'returns http created' do
@@ -48,7 +48,7 @@ RSpec.describe "Trails", type: :request do
     context 'when the trail is invalid' do
       before(:example) do
         @trail_params = attributes_for(:trail, :invalid)
-        post '/trails', params: { trail: @trail_params }
+        post '/trails', params: { trail: @trail_params }, headers: authenticated_header
         @json_response = JSON.parse(response.body)
       end
 
@@ -71,7 +71,7 @@ RSpec.describe "Trails", type: :request do
       before(:example) do
         @trail = create(:trail)
         @updated_name = 'Updated Trail'
-        put "/trails/#{@trail.id}", params: { trail: { name: @updated_name } }
+        put "/trails/#{@trail.id}", params: { trail: { name: @updated_name } }, headers: authenticated_header
       end
 
       it 'has a http no content response status' do
@@ -86,7 +86,7 @@ RSpec.describe "Trails", type: :request do
     context 'when the params are invalid' do
       before(:example) do
         @trail = create(:trail)
-        put "/trails/#{@trail.id}", params: { trail: { name: nil } }
+        put "/trails/#{@trail.id}", params: { trail: { name: nil } }, headers: authenticated_header
         @json_response = JSON.parse(response.body)
       end
 
@@ -103,7 +103,7 @@ RSpec.describe "Trails", type: :request do
   describe 'DELETE #destroy' do
     before(:example) do
       trail = create(:trail)
-      delete "/trails/#{trail.id}"
+      delete "/trails/#{trail.id}", headers: authenticated_header
     end
 
     it 'has a http no content response status' do

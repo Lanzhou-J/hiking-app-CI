@@ -4,7 +4,7 @@ module AuthenticationHelpers
 
     token = Knock::AuthToken.new(payload: { sub: user.id }).token
 
-    { 'Authorisation': "Bearer #{token}" }
+    { 'Authorization': "Bearer #{token}" }
   end 
 end
 

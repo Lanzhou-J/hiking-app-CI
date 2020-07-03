@@ -1,4 +1,5 @@
 class TrailsController < ApplicationController
+  before_action :authenticate_user, only: %i[create update destroy]
   def index
     trails = Trail.all
     render json: { trails: trails }
@@ -6,6 +7,8 @@ class TrailsController < ApplicationController
 
   def create
     trail = Trail.new(trail_params)
+    trail.user = current_user
+
     if trail.save
       render json: {}, status: :created
     else
