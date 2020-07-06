@@ -12,7 +12,8 @@ class TrailsController < ApplicationController
     if trail.save
       render json: {}, status: :created
     else
-      render json: {errors: trail.errors.full_messages}, status: :unprocessable_entity
+      render json: { errors: trail.errors.full_messages },
+             status: :unprocessable_entity
     end
   end
 
@@ -21,7 +22,8 @@ class TrailsController < ApplicationController
     if trail.update(trail_params)
       render json: {}, status: :no_content
     else
-      render json: {errors: trail.errors.full_messages}, status: :unprocessable_entity
+      render json: { errors: trail.errors.full_messages },
+             status: :unprocessable_entity
     end
   end
 
@@ -30,9 +32,10 @@ class TrailsController < ApplicationController
     trail.delete
     render json: {}, status: :no_content
   end
+
   private
 
   def trail_params
-    params.require(:trail).permit(:name,:distance,:difficulty,:location)
+    params.require(:trail).permit(:name, :distance, :difficulty, :location)
   end
 end
