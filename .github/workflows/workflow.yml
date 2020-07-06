@@ -22,8 +22,8 @@ jobs:
       - uses: actions/checkout
       # install ruby
       - uses: actions/setup-ruby
-      with: 
-        ruby-version: ${{ env.RUBY_VERSION }}
+        with: 
+          ruby-version: ${{ env.RUBY_VERSION }}
       - name: Install Rubocop
         run: gem install rubocop
       - name: Check code
