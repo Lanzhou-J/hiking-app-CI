@@ -1,0 +1,31 @@
+env:
+  RUBY_VERSION: 2.7
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: ""
+  POSTGRES_DB: postgres
+
+# name of the workflow as it apears on GitHub
+name: Rails tests
+# Events that will trigger the workflow
+on: [push, pull_request]
+# All the tasks defined for this workflow
+jobs:
+  rubocop-test:
+    # Name of the task
+    name: Rubocop
+    # OS to run tests on can also be macOS or WinServer2019
+    # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: ubuntu-18.04
+    # Define the instructions that prepare the OS and make it run tests
+    steps:
+      # checkout the repo
+      - uses: actions/checkout
+      # install ruby
+      - uses: actions/setup-ruby
+      with: 
+        ruby-version: ${{ env.RUBY_VERSION }}
+      - name: Install Rubocop
+        run: gem install rubocop
+      - name: Check code
+        run: rubocop
+
