@@ -19,9 +19,9 @@ jobs:
     # Define the instructions that prepare the OS and make it run tests
     steps:
       # checkout the repo
-      - uses: actions/checkout
+      - uses: actions/checkout@v2
       # install ruby
-      - uses: actions/setup-ruby
+      - uses: actions/setup-ruby@v1
         with: 
           ruby-version: ${{ env.RUBY_VERSION }}
       - name: Install Rubocop
