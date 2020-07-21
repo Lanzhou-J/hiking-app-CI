@@ -1,0 +1,22 @@
+env:
+  RUBY_VERSION:2.7.0
+
+name: Rails Quality Check
+on: [push, pull_request]
+jobs: 
+  #Name of the Job/Task
+  rubocop-linting:
+    name: Rubocop
+    # OS to run this workflow on
+    runs-on: ubuntu-18.04
+    steps:
+      #Needed to checkout code from our repo
+      - uses: actions/checkout@v2
+      # Install Ruby
+      - uses: actions/setup-ruby@v1
+        with: 
+          ruby-version: ${{ env.RUBY_VERSION}}
+      - name: Install Rubocop for Rails
+        run: gem install rubocop-rails
+      - name: Check our code style
+        run: rubocop
